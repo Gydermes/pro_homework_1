@@ -31,6 +31,5 @@ class Buyer:
 
 
 buyer_1 = Buyer("Ivanov", "Ivan", "Ivanovich", "+380933344444")
-git init
 
 print(buyer_1)
