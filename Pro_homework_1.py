@@ -1,30 +1,86 @@
-class Shop:
 
-    def __init__(self, technique, model, price):
+class Product:
 
-        self.technique = technique
-        self.model = model
+    def __init__(self, title: str, price: int | float):
+        if not isinstance(title, str):
+            raise TypeError()
+        self.title = title
+        if not isinstance(price, int | float):
+            raise TypeError()
         self.price = price
 
     def __str__(self):
+        return f'{self.title}: {self.price} грн.'
 
-        return f'{self.technique}, {self.model},{self.price}$'
 
+class Customer:
 
-class Buyer:
-    def __init__(self, surname, name, patronymic, phone_number):
-        self.surname = surname
+    def __init__(self, name: str, surname: str, phone: str):
+        if not isinstance(name, str):
+            raise TypeError()
         self.name = name
-        self.patronymic = patronymic
-        self.phone_number = phone_number
+        if not isinstance(surname, str):
+            raise TypeError()
+        self.surname = surname
+        if not isinstance(phone, str):
+            raise TypeError()
+        self.phone = phone
 
     def __str__(self):
+        return f'{self.surname} {self.name[0]}., {self.phone}'
 
-        return f'{self.surname} {self.name[0]}.{self.patronymic[0]}., {self.phone_number}'
+
+class Cart:
+
+    def __init__(self, customer: Customer = None):
+        self.customer = customer
+        self.products = []
+        self.quantities = []
+
+    def add_product(self, product: Product, quantity: int | float):
+        if product in self.products:
+            index = self.products.index(product)
+            self.quantities[index] += quantity
+        else:
+            self.products.append(product)
+            self.quantities.append(quantity)
+
+    def total(self):
+        res = 0
+        for index, item in enumerate(self.products):
+            res += item.price * self.quantities[index]
+        return res
+
+    def __str__(self):
+        res = f'{self.customer}\n'
+
+        for index, item in enumerate(self.products):
+            res += f'\t{item} x {self.quantities[index]} = {item.price * self.quantities[index]} грн.\n'
+
+        res += f'Total price: {self.total()} грн.'
+
+        return res
 
 
-product_1 = Shop("Phone", "Iphone", 200)
-product_2 = Shop("TV", "Samsung", 105)
-buyer_1 = Buyer("Ivanov", "Ivan", "Ivanovich", "+380933344444")
+pr_1 = Product('banana', 45)
+pr_2 = Product('apple', 21)
+pr_3 = Product('orange', 22)
 
-print(buyer_1, "Product :", product_1, product_2, sep="\n")
+customer_1 = Customer('Ivan', 'Ivanov', '123456789')
+customer_2 = Customer('Ivan', 'Petrov', '223456789')
+
+order_1 = Cart(customer_1)
+order_2 = Cart(customer_2)
+
+order_1.add_product(pr_1, 2.5)
+order_1.add_product(pr_2, 3.)
+order_1.add_product(pr_1, 2)
+order_2.add_product(pr_1, 1)
+order_2.add_product(pr_2, 1)
+order_2.add_product(pr_3, 1)
+
+# print(order_1)
+print(order_1.customer)
+print(order_1)
+print(order_1.quantities)
+# print(order_2)
