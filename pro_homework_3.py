@@ -47,7 +47,7 @@ rec_2 = Rectangle(5, 3)
 print("S1=", rec_1.square_rectangle())
 print("S2=", rec_2.square_rectangle())
 res = rec_1 > rec_2
-print(res)
+print("rec_1 > rec_2", res)
 rec_3 = rec_1.square_rectangle() + rec_2.square_rectangle()
 print("S3=", rec_3)
 
