@@ -65,6 +65,7 @@ class Product:
 #         return res
 
 
+
 pr_1 = Product('banana', 45)
 pr_2 = Product('apple', 21)
 pr_3 = Product('orange', 22)

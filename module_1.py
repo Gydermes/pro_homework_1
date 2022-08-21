@@ -13,4 +13,3 @@ class Customer:
 
     def __str__(self):
         return f'{self.surname} {self.name[0]}., {self.phone}'
-git init

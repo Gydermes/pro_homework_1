@@ -1,4 +1,3 @@
-import settings
 import module_3
 import module_4
 

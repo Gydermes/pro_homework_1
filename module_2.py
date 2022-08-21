@@ -1,15 +1,30 @@
-class Customer:
+class Cart:
 
-    def __init__(self, name: str, surname: str, phone: str):
-        if not isinstance(name, str):
-            raise TypeError()
-        self.name = name
-        if not isinstance(surname, str):
-            raise TypeError()
-        self.surname = surname
-        if not isinstance(phone, str):
-            raise TypeError()
-        self.phone = phone
+    def __init__(self, customer):
+        self.customer = customer
+        self.products = []
+        self.quantities = []
+
+    def add_product(self, product, quantity: int | float):
+        if product in self.products:
+            index = self.products.index(product)
+            self.quantities[index] += quantity
+        else:
+            self.products.append(product)
+            self.quantities.append(quantity)
+
+    def total(self):
+        res = 0
+        for index, item in enumerate(self.products):
+            res += item.price * self.quantities[index]
+        return res
 
     def __str__(self):
-        return f'{self.surname} {self.name[0]}., {self.phone}'
+        res = f'{self.customer}\n'
+
+        for index, item in enumerate(self.products):
+            res += f'\t{item} x {self.quantities[index]} = {item.price * self.quantities[index]} грн.\n'
+
+        res += f'Total price: {self.total()} грн.'
+
+        return res
